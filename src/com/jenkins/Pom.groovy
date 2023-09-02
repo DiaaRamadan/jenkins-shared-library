@@ -19,8 +19,8 @@ class Pom {
     }
 
     def getPomVersion(String path){
-        def matcher = readFile(path) =~ '<version>(.+)</version>'
-        return matcher[0][1]
+        def matcher = readFile($path) =~ '<version>(.+)</version>'
+        return matcher[0][1 as String]
     }
 
 }
