@@ -10,15 +10,18 @@ class Pom {
         this.script = script
     }
 
-    def incrementVersion(String pomPath){
-        sh "mvn -f $pomPath build-helper:parse-version versions:set \
+    def incrementVersion(String pomPath) {
+        def command = """
+        mvn -f $pomPath build-helper:parse-version versions:set \
         -DnewVersion=\${parsedVersion.majorVersion}.\
         \${parsedVersion.minorVersion}.\
         \${parsedVersion.nextIncrementalVersion} \
-        versions:commit"
+        versions:commit
+    """
+        sh command
     }
 
-    def getPomVersion(String path){
+    def getPomVersion(String path) {
         def matcher = readFile($path) =~ '<version>(.+)</version>'
         return matcher[0][1 as String]
     }
